@@ -40,6 +40,10 @@ jobs:
         run: |
           ssh -i ~/.ssh/neviim_ec2_key "${EC2_USER}@${EC2_HOST}" "FOLDER_NAME='${FOLDER_NAME}' bash -s" <<'EOF'
             set -euo pipefail
+            cd /home/ubuntu/fotos-familia
+            chmod +x scripts/*.sh
+            scripts/ec2_copy_service_account.sh /home/ubuntu/service-account.json
+
             cd /home/ubuntu/fotos-familia/backend
 
             if [ ! -f .venv/bin/activate ]; then
