@@ -33,12 +33,12 @@ EC2_PUBLIC_HOSTNAME=${PUBLIC_HOST}
 EC2_PUBLIC_SCHEME=${PUBLIC_SCHEME}
 
 FIREBASE_PROJECT_ID=hidden-solstice-305914
-FIREBASE_SERVICE_ACCOUNT_PATH=/home/ubuntu/apps/app-neviim/secrets/service-account.json
-GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/apps/app-neviim/secrets/service-account.json
+FIREBASE_SERVICE_ACCOUNT_PATH=/home/ubuntu/fotos-familia/secrets/service-account.json
+GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fotos-familia/secrets/service-account.json
 GCP_PROJECT_ID=hidden-solstice-305914
 
 DRIVE_FOLDER_ID=1WefwWTuE5eSocfY5-KRDSy_Y8-IT9z5l
-NEVIIM_MEDIA_CACHE_DIR=/home/ubuntu/apps/app-neviim/data/media-cache
+NEVIIM_MEDIA_CACHE_DIR=/home/ubuntu/fotos-familia/data/media-cache
 
 ADMIN_UID_WHITELIST=["${ADMIN_UID}"]
 ALLOWED_ORIGINS=${ALLOWED_ORIGINS}

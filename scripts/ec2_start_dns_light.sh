@@ -4,7 +4,7 @@ set -euo pipefail
 PUBLIC_HOST="${1:-insightflow.ddns.net}"
 SERVICE_ACCOUNT_SOURCE="${2:-}"
 ADMIN_UID="${3:-firebase-admin-uid}"
-APP_ROOT="${4:-/home/ubuntu/apps/app-neviim}"
+APP_ROOT="${4:-/home/ubuntu/fotos-familia}"
 PUBLIC_SCHEME="${5:-https}"
 WEB_PACKAGE="${6:-/home/ubuntu/neviim-web.tar.gz}"
 WEB_ROOT="${7:-/var/www/neviim}"

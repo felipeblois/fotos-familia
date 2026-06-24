@@ -40,7 +40,7 @@ jobs:
         run: |
           ssh -i ~/.ssh/neviim_ec2_key "${EC2_USER}@${EC2_HOST}" "FOLDER_NAME='${FOLDER_NAME}' bash -s" <<'EOF'
             set -euo pipefail
-            cd /home/ubuntu/apps/app-neviim/backend
+            cd /home/ubuntu/fotos-familia/backend
 
             if [ ! -f .venv/bin/activate ]; then
               echo "Virtualenv do backend nao encontrado em backend/.venv." >&2

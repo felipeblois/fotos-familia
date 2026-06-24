@@ -23,7 +23,7 @@ Na EC2:
 
 - Ubuntu com acesso SSH;
 - portas `80` e, se usar HTTPS, `443` liberadas no Security Group;
-- repositorio clonado em `/home/ubuntu/apps/app-neviim`;
+- repositorio clonado em `/home/ubuntu/fotos-familia`;
 - service account fora do Git, por exemplo em `/home/ubuntu/service-account.json`;
 - DNS `insightflow.ddns.net` apontando para o IP publico atual da EC2.
 
@@ -37,7 +37,7 @@ No WSL/local:
 Para HTTP:
 
 ```bash
-cd /mnt/c/Users/felip/Documents/projeto_2/app-neviim
+cd /mnt/c/Users/felip/Documents/fotos-familia
 chmod +x scripts/*.sh
 scripts/wsl_package_web.sh http://insightflow.ddns.net
 ```
@@ -45,7 +45,7 @@ scripts/wsl_package_web.sh http://insightflow.ddns.net
 Para HTTPS:
 
 ```bash
-cd /mnt/c/Users/felip/Documents/projeto_2/app-neviim
+cd /mnt/c/Users/felip/Documents/fotos-familia
 chmod +x scripts/*.sh
 scripts/wsl_package_web.sh https://insightflow.ddns.net
 ```
@@ -79,10 +79,10 @@ ssh ubuntu@insightflow.ddns.net
 Rode:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim
+cd /home/ubuntu/fotos-familia
 git pull
 chmod +x scripts/*.sh
-scripts/ec2_start_dns_light.sh insightflow.ddns.net /home/ubuntu/service-account.json SEU_ADMIN_UID /home/ubuntu/apps/app-neviim http /home/ubuntu/neviim-web.tar.gz
+scripts/ec2_start_dns_light.sh insightflow.ddns.net /home/ubuntu/service-account.json SEU_ADMIN_UID /home/ubuntu/fotos-familia http /home/ubuntu/neviim-web.tar.gz
 ```
 
 Se ainda nao tiver o UID real do admin Firebase, use o placeholder e ajuste depois em `backend/.env`:
@@ -110,7 +110,7 @@ Use quando mudou tela, texto, asset ou configuracao embutida no Flutter.
 No WSL/local:
 
 ```bash
-cd /mnt/c/Users/felip/Documents/projeto_2/app-neviim
+cd /mnt/c/Users/felip/Documents/fotos-familia
 scripts/wsl_package_web.sh http://insightflow.ddns.net
 scp dist/neviim-web.tar.gz ubuntu@insightflow.ddns.net:/home/ubuntu/neviim-web.tar.gz
 ```
@@ -118,7 +118,7 @@ scp dist/neviim-web.tar.gz ubuntu@insightflow.ddns.net:/home/ubuntu/neviim-web.t
 Na EC2:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim
+cd /home/ubuntu/fotos-familia
 scripts/ec2_publish_frontend.sh /home/ubuntu/neviim-web.tar.gz /var/www/neviim
 ```
 
@@ -171,7 +171,7 @@ Observacao: o Security Group da EC2 precisa permitir SSH a partir do runner do G
 Use quando mudou codigo Python, indexador, rotas ou configuracao de API.
 
 ```bash
-cd /home/ubuntu/apps/app-neviim
+cd /home/ubuntu/fotos-familia
 git pull
 cd backend
 source .venv/bin/activate
@@ -185,14 +185,14 @@ scripts/ec2_restart.sh
 Status:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim
+cd /home/ubuntu/fotos-familia
 scripts/ec2_status.sh
 ```
 
 Logs:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim
+cd /home/ubuntu/fotos-familia
 scripts/ec2_logs.sh
 scripts/ec2_logs.sh api
 scripts/ec2_logs.sh nginx
@@ -201,14 +201,14 @@ scripts/ec2_logs.sh nginx
 Restart:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim
+cd /home/ubuntu/fotos-familia
 scripts/ec2_restart.sh
 ```
 
 Stop:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim
+cd /home/ubuntu/fotos-familia
 scripts/ec2_stop.sh
 ```
 
@@ -224,7 +224,7 @@ curl http://localhost/health
 O primeiro deploy pode ser HTTP. Para ativar HTTPS:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim
+cd /home/ubuntu/fotos-familia
 scripts/ec2_install_https.sh insightflow.ddns.net seu-email@dominio.com
 ```
 
@@ -238,7 +238,7 @@ scp dist/neviim-web.tar.gz ubuntu@insightflow.ddns.net:/home/ubuntu/neviim-web.t
 Na EC2:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim
+cd /home/ubuntu/fotos-familia
 scripts/ec2_publish_frontend.sh /home/ubuntu/neviim-web.tar.gz /var/www/neviim
 ```
 
@@ -255,7 +255,7 @@ Alterar fotos no Drive nao exige rebuild nem SCP.
 Comando seguro na EC2:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim/backend
+cd /home/ubuntu/fotos-familia/backend
 source .venv/bin/activate
 python scripts/index_drive.py --folder-name Galeria --prune-missing-albums
 ```
@@ -282,13 +282,13 @@ O frontend carrega a galeria em lotes de 20 fotos. O botao "Carregar mais" busca
 As miniaturas passam pelo backend e ficam em cache local na EC2. O caminho recomendado fica em:
 
 ```text
-/home/ubuntu/apps/app-neviim/data/media-cache
+/home/ubuntu/fotos-familia/data/media-cache
 ```
 
 Esse caminho e configurado por `NEVIIM_MEDIA_CACHE_DIR` em `backend/.env`. Se precisar limpar miniaturas antigas, remova apenas essa pasta e reinicie a API:
 
 ```bash
-rm -rf /home/ubuntu/apps/app-neviim/data/media-cache/thumbnails
+rm -rf /home/ubuntu/fotos-familia/data/media-cache/thumbnails
 scripts/ec2_restart.sh
 ```
 
