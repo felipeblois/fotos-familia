@@ -1,0 +1,54 @@
+name: Sync Drive Gallery
+run-name: Sync Drive Gallery from ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      folder_name:
+        description: "Nome da pasta do Drive que sera sincronizada"
+        required: true
+        default: "Galeria"
+
+concurrency:
+  group: neviim-sync-drive-gallery
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync Google Drive photos
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+      EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+      FOLDER_NAME: ${{ inputs.folder_name }}
+
+    steps:
+      - name: Configure SSH
+        run: |
+          test -n "${EC2_HOST}"
+          test -n "${EC2_USER}"
+          test -n "${EC2_SSH_KEY}"
+          mkdir -p ~/.ssh
+          printf '%s\n' "${EC2_SSH_KEY}" > ~/.ssh/neviim_ec2_key
+          chmod 600 ~/.ssh/neviim_ec2_key
+          ssh-keyscan -H "${EC2_HOST}" >> ~/.ssh/known_hosts
+
+      - name: Run Drive indexer on EC2
+        run: |
+          ssh -i ~/.ssh/neviim_ec2_key "${EC2_USER}@${EC2_HOST}" "FOLDER_NAME='${FOLDER_NAME}' bash -s" <<'EOF'
+            set -euo pipefail
+            cd /home/ubuntu/apps/app-neviim/backend
+
+            if [ ! -f .venv/bin/activate ]; then
+              echo "Virtualenv do backend nao encontrado em backend/.venv." >&2
+              echo "Execute o setup/deploy da EC2 antes de sincronizar fotos." >&2
+              exit 1
+            fi
+
+            source .venv/bin/activate
+            python scripts/inspect_drive.py --include-subfolders
+            python scripts/index_drive.py --folder-name "${FOLDER_NAME}" --prune-missing-albums
+          EOF

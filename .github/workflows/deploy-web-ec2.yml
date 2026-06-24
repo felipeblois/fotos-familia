@@ -1,0 +1,103 @@
+name: Deploy Web EC2
+run-name: Deploy Web EC2 from ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      backend_base_url:
+        description: "URL publica do backend usada no build Flutter"
+        required: true
+        default: "http://107.20.35.155"
+
+concurrency:
+  group: neviim-web-ec2
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and deploy Flutter Web
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+      EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+      BACKEND_BASE_URL: ${{ inputs.backend_base_url }}
+      DEPLOY_BRANCH: ${{ github.ref_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.22.3"
+          channel: stable
+          cache: true
+
+      - name: Validate Flutter project
+        working-directory: app
+        run: |
+          flutter pub get
+          flutter test test/features/gallery/gallery_screen_test.dart
+          flutter analyze
+
+      - name: Build web package
+        run: |
+          chmod +x scripts/*.sh
+          scripts/wsl_package_web.sh "${BACKEND_BASE_URL}" dist/neviim-web.tar.gz
+
+      - name: Configure SSH
+        run: |
+          test -n "${EC2_HOST}"
+          test -n "${EC2_USER}"
+          test -n "${EC2_SSH_KEY}"
+          mkdir -p ~/.ssh
+          printf '%s\n' "${EC2_SSH_KEY}" > ~/.ssh/neviim_ec2_key
+          chmod 600 ~/.ssh/neviim_ec2_key
+          ssh-keyscan -H "${EC2_HOST}" >> ~/.ssh/known_hosts
+
+      - name: Upload web package
+        run: |
+          scp -i ~/.ssh/neviim_ec2_key \
+            dist/neviim-web.tar.gz \
+            "${EC2_USER}@${EC2_HOST}:/home/ubuntu/neviim-web.tar.gz"
+
+      - name: Publish on EC2
+        run: |
+          ssh -i ~/.ssh/neviim_ec2_key "${EC2_USER}@${EC2_HOST}" "DEPLOY_BRANCH='${DEPLOY_BRANCH}' EC2_HOST='${EC2_HOST}' bash -s" <<'EOF'
+            set -euo pipefail
+            cd /home/ubuntu/apps/app-neviim
+
+            if [ -n "$(git status --porcelain)" ]; then
+              git stash push -u -m "github-actions-deploy-$(date -u +%Y%m%d%H%M%S)"
+            fi
+
+            git fetch origin "${DEPLOY_BRANCH}"
+            git checkout -B "${DEPLOY_BRANCH}" FETCH_HEAD
+
+            chmod +x scripts/*.sh
+            scripts/ec2_setup_backend.sh
+            scripts/ec2_publish_frontend.sh /home/ubuntu/neviim-web.tar.gz /var/www/neviim
+            scripts/ec2_install_nginx.sh "${EC2_HOST}" /home/ubuntu/apps/app-neviim /var/www/neviim
+            sudo systemctl restart neviim-api
+
+            for attempt in $(seq 1 30); do
+              if curl -fsS http://127.0.0.1:8000/health; then
+                break
+              fi
+
+              if [ "${attempt}" = "30" ]; then
+                sudo systemctl status neviim-api --no-pager || true
+                sudo journalctl -u neviim-api -n 120 --no-pager || true
+                exit 1
+              fi
+
+              sleep 2
+            done
+
+            sudo systemctl reload nginx
+            curl -fsS http://localhost/health
+          EOF
