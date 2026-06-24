@@ -24,7 +24,7 @@ class GalleryScreen extends ConsumerWidget {
           children: [
             ClipOval(
               child: Image.asset(
-                'assets/icons/image.jpg',
+                'assets/icons/family_logo.png',
                 width: 28,
                 height: 28,
                 fit: BoxFit.cover,

@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/config/app_config.dart';
 import '../../core/theme/app_theme.dart';
@@ -28,18 +27,6 @@ class _AdminScreenState extends ConsumerState<AdminScreen> {
   List<Map<String, dynamic>> _auditLogs = const [];
 
   bool get _isAdmin => FirebaseAuth.instance.currentUser != null;
-
-  Future<void> _openInstagram() async {
-    final uri = Uri.parse(AppConfig.instagramUrl);
-    if (!await launchUrl(uri, mode: LaunchMode.externalApplication) &&
-        mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Não foi possível abrir o Instagram agora.'),
-        ),
-      );
-    }
-  }
 
   Future<void> _handleSignIn() async {
     setState(() => _isLoading = true);
@@ -226,7 +213,7 @@ class _AdminScreenState extends ConsumerState<AdminScreen> {
                           ),
                           child: ClipOval(
                             child: Image.asset(
-                              'assets/icons/image.jpg',
+                              'assets/icons/family_logo.png',
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -261,11 +248,6 @@ class _AdminScreenState extends ConsumerState<AdminScreen> {
                           ),
                         ),
                         const SizedBox(height: 14),
-                        TextButton.icon(
-                          onPressed: _openInstagram,
-                          icon: const Icon(Icons.camera_alt_outlined),
-                          label: const Text(AppConfig.instagramLabel),
-                        ),
                         const SizedBox(height: 24),
                         _isLoading
                             ? const CircularProgressIndicator()

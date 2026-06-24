@@ -1,11 +1,11 @@
 {
-    "name": "Neviim | Paróquia São José do Operário",
-    "short_name": "Neviim",
+    "name": "Fotos da Família",
+    "short_name": "Família",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#F3E5F5",
-    "theme_color": "#4A148C",
-    "description": "Galeria de fotos da Paróquia São José do Operário.",
+    "background_color": "#FAF4EA",
+    "theme_color": "#B6633E",
+    "description": "Álbum privado de fotos da família.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

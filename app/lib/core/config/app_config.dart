@@ -1,10 +1,9 @@
 class AppConfig {
-  static const String appName = 'Neviim';
-  static const String parishName = 'Paróquia São José do Operário';
+  static const String appName = 'Fotos da Família';
+  static const String parishName = 'Memórias da família';
   static const String developerCredit = 'Felipe Blois Desenvolvedor';
-  static const String instagramLabel = 'Instagram @projetoneviim';
-  static const String instagramUrl =
-      'https://www.instagram.com/projetoneviim?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==';
+  static const String instagramLabel = 'Álbum particular da família';
+  static const String instagramUrl = '';
   static const String appVersion = '0.1.0';
   static const String currentTermsVersion = '1.0.0';
   static const bool bypassConsent = bool.fromEnvironment(

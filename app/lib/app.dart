@@ -6,8 +6,8 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/widgets/developer_credit.dart';
 
-class NeviimApp extends ConsumerWidget {
-  const NeviimApp({super.key});
+class FotosFamiliaApp extends ConsumerWidget {
+  const FotosFamiliaApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

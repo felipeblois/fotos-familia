@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/config/app_config.dart';
 import '../../core/theme/app_theme.dart';
@@ -17,18 +16,6 @@ class AboutScreen extends ConsumerStatefulWidget {
 class _AboutScreenState extends ConsumerState<AboutScreen> {
   final _pushService = PushService();
   bool _pushEnabled = true;
-
-  Future<void> _openInstagram() async {
-    final uri = Uri.parse(AppConfig.instagramUrl);
-    if (!await launchUrl(uri, mode: LaunchMode.externalApplication) &&
-        mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Não foi possível abrir o Instagram agora.'),
-        ),
-      );
-    }
-  }
 
   Future<void> _togglePush(bool value) async {
     setState(() => _pushEnabled = value);
@@ -59,7 +46,7 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
             Center(
               child: ClipOval(
                 child: Image.asset(
-                  'assets/icons/image.jpg',
+                  'assets/icons/family_logo.png',
                   width: 92,
                   height: 92,
                   fit: BoxFit.cover,
@@ -87,9 +74,9 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
             ),
             const SizedBox(height: 32),
             _Section(
-              title: 'Missao',
+              title: 'Missão',
               content:
-                  'O app entrega galerias de fotos da comunidade Neviim para consulta e download pelos fiéis.',
+                  'O app reúne fotos da família em um álbum privado para consulta, download e lembranças do dia a dia.',
               icon: Icons.favorite_border,
             ),
             const SizedBox(height: 24),
@@ -118,17 +105,15 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Para solicitar remoção de mídia, fale com a equipe pelo perfil oficial do projeto.',
+                    'Para remover alguma foto, fale diretamente com a pessoa responsável pelo álbum familiar.',
                     style: TextStyle(color: colorScheme.onErrorContainer),
                   ),
                   const SizedBox(height: 12),
-                  TextButton.icon(
-                    onPressed: _openInstagram,
-                    icon: const Icon(Icons.camera_alt_outlined),
-                    label: const Text(AppConfig.instagramLabel),
-                    style: TextButton.styleFrom(
-                      foregroundColor: colorScheme.onErrorContainer,
-                      padding: EdgeInsets.zero,
+                  Text(
+                    AppConfig.instagramLabel,
+                    style: TextStyle(
+                      color: colorScheme.onErrorContainer,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ],
@@ -150,7 +135,7 @@ class _AboutScreenState extends ConsumerState<AboutScreen> {
                   ),
                 ),
                 subtitle: const Text(
-                  'Ser avisado quando uma nova galeria for publicada.',
+                  'Ser avisado quando novas fotos forem publicadas.',
                 ),
                 value: _pushEnabled,
                 onChanged: _togglePush,
