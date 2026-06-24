@@ -20,9 +20,8 @@ if [[ ! -f ".env" ]]; then
 fi
 
 if [[ ! -f "${SECRETS_DIR}/service-account.json" ]]; then
-  echo "Arquivo secrets/service-account.json nao encontrado." >&2
-  echo "Copie a service account para ${SECRETS_DIR}/service-account.json antes de continuar." >&2
-  exit 1
+  echo "Arquivo secrets/service-account.json nao encontrado. Tentando copiar do caminho padrao da EC2..."
+  bash "${SCRIPT_DIR}/ec2_copy_service_account.sh"
 fi
 
 if [[ ! -d ".venv" ]]; then
