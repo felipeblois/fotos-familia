@@ -1,0 +1,64 @@
+name: neviim
+description: "App Neviim — Galeria de fotos da Paróquia São José do Operário"
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # --- Navegação ---
+  go_router: ^13.2.0
+
+  # --- Estado ---
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # --- Firebase ---
+  firebase_core: ^2.30.1
+  cloud_firestore: ^4.17.3
+  firebase_auth: ^4.19.5
+  firebase_app_check: ^0.2.2+2
+  firebase_messaging: ^14.9.2
+  google_sign_in: ^6.2.1
+  # firebase_messaging: ^14.9.2
+
+  # --- UI / Mídia ---
+  cached_network_image: ^3.3.1
+  google_fonts: ^6.1.0
+  shimmer: ^3.0.0
+
+  # --- HTTP ---
+  dio: ^5.4.3
+
+  # --- Storage local & Cache ---
+  shared_preferences: ^2.2.3
+  flutter_cache_manager: ^3.3.2
+
+  # --- Ferramentas ---
+  url_launcher: ^6.2.6
+
+  # --- Utilitários ---
+  intl: ^0.19.0
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.9
+  riverpod_generator: ^2.4.0
+  custom_lint: ^0.6.4
+  riverpod_lint: ^2.3.10
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  # Fontes adicionadas via google_fonts (sem necessidade de bundle local)

@@ -1,0 +1,19 @@
+gcp_project_id      = "hidden-solstice-305914"
+firebase_project_id = "hidden-solstice-305914"
+environment         = "production"
+gcp_region          = "southamerica-east1"
+
+admin_uid_whitelist = [
+  "firebase-admin-uid"
+]
+
+lgpd_contact_email = "paroquia@example.com"
+drive_folder_id    = "google-drive-root-folder-id"
+
+enable_budget_alert = true
+billing_account_id  = "000000-000000-000000"
+budget_amount_usd   = 10
+budget_alert_email  = "alerts@example.com"
+
+enable_uptime_check = true
+backend_uptime_url  = "https://api.seu-dominio.com/health"

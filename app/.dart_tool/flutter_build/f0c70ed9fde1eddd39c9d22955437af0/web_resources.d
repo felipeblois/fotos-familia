@@ -1,0 +1,1 @@
+ build/web/manifest.json:  /mnt/c/Users/felip/Documents/projeto_2/app-neviim/app/web/index.html /mnt/c/Users/felip/Documents/projeto_2/app-neviim/app/web/manifest.json

@@ -1,0 +1,38 @@
+# =============================================================================
+# NEVIIM Backend - Dependencias Python
+# Versoes ajustadas para funcionar no ambiente local WSL/Linux sem depender
+# de releases muito recentes que podem nao existir no indice configurado.
+# =============================================================================
+
+# --- Web Framework ---
+fastapi>=0.124.0,<0.125.0
+uvicorn[standard]>=0.30.0,<0.45.0
+
+# --- Validacao e Configuracao ---
+pydantic>=2.8.0,<3.0.0
+pydantic-settings>=2.4.0,<3.0.0
+
+# --- Firebase & Google ---
+firebase-admin>=6.5.0
+google-api-python-client>=2.128.0
+google-auth>=2.29.0
+google-auth-httplib2>=0.2.0
+
+# --- Seguranca & Rate Limiting ---
+slowapi==0.1.9
+
+# --- Sanitizacao de Input ---
+bleach>=6.1.0,<7.0.0
+
+# --- Resiliencia ---
+tenacity>=9.0.0,<10.0.0
+
+# --- Logging Estruturado ---
+structlog>=24.0.0,<26.0.0
+
+# --- HTTP Client ---
+httpx==0.28.1
+anyio>=4.4.0,<5.0.0
+
+# --- Variaveis de Ambiente ---
+python-dotenv>=1.0.0,<2.0.0

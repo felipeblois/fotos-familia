@@ -1,0 +1,12 @@
+.venv
+.venv-wsl
+__pycache__
+.pytest_cache
+.coverage
+tests
+credentials
+.env
+*.pyc
+*.pyo
+*.pyd
+htmlcov
