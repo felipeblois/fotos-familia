@@ -14,15 +14,35 @@ mkdir -p "${RUN_DIR}" "${LOG_DIR}" "${CACHE_DIR}" "${SECRETS_DIR}"
 cd "${BACKEND_DIR}"
 
 if [[ ! -f ".env" ]]; then
-  echo "Arquivo backend/.env nao encontrado." >&2
-  echo "Copie backend/.env.ec2.example para backend/.env e ajuste os valores." >&2
-  exit 1
+  if [[ -f ".env.ec2.example" ]]; then
+    echo "Arquivo backend/.env nao encontrado. Criando a partir de backend/.env.ec2.example..."
+    cp ".env.ec2.example" ".env"
+  else
+    echo "Arquivo backend/.env nao encontrado." >&2
+    echo "Copie backend/.env.ec2.example para backend/.env e ajuste os valores." >&2
+    exit 1
+  fi
 fi
 
 if [[ ! -f "${SECRETS_DIR}/service-account.json" ]]; then
   echo "Arquivo secrets/service-account.json nao encontrado. Tentando copiar do caminho padrao da EC2..."
   bash "${SCRIPT_DIR}/ec2_copy_service_account.sh"
 fi
+
+set_env_value() {
+  local key="$1"
+  local value="$2"
+
+  if grep -q "^${key}=" ".env"; then
+    sed -i "s|^${key}=.*|${key}=${value}|" ".env"
+  else
+    printf "\n%s=%s\n" "${key}" "${value}" >> ".env"
+  fi
+}
+
+set_env_value "FIREBASE_SERVICE_ACCOUNT_PATH" "${SECRETS_DIR}/service-account.json"
+set_env_value "GOOGLE_APPLICATION_CREDENTIALS" "${SECRETS_DIR}/service-account.json"
+set_env_value "NEVIIM_MEDIA_CACHE_DIR" "${CACHE_DIR}"
 
 if [[ ! -d ".venv" ]]; then
   echo "Criando virtualenv do backend..."

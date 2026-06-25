@@ -45,6 +45,8 @@ jobs:
             scripts/ec2_copy_service_account.sh /home/ubuntu/service-account.json
 
             cd /home/ubuntu/fotos-familia/backend
+            export FIREBASE_SERVICE_ACCOUNT_PATH=/home/ubuntu/fotos-familia/secrets/service-account.json
+            export GOOGLE_APPLICATION_CREDENTIALS=/home/ubuntu/fotos-familia/secrets/service-account.json
 
             if [ ! -f .venv/bin/activate ]; then
               echo "Virtualenv do backend nao encontrado em backend/.venv." >&2
