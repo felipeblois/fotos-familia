@@ -7,7 +7,7 @@ TEMPLATE_PATH="${PROJECT_ROOT}/deploy/nginx/neviim.conf.template"
 OUTPUT_PATH="/tmp/neviim.nginx.conf"
 
 DOMAIN="${1:-}"
-APP_ROOT="${2:-/home/ubuntu/apps/app-neviim}"
+APP_ROOT="${2:-/home/ubuntu/fotos-familia}"
 WEB_ROOT="${3:-${APP_ROOT}/app/build/web}"
 
 if [[ -z "${DOMAIN}" ]]; then

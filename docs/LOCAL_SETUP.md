@@ -14,7 +14,7 @@ Arquitetura oficial:
 Na raiz do projeto:
 
 ```bash
-cd /mnt/c/Users/felip/Documents/projeto_2/app-neviim
+cd /mnt/c/Users/felip/Documents/fotos-familia
 chmod +x scripts/*.sh
 ./scripts/wsl_run_local.sh
 ```

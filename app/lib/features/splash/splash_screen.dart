@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/config/app_config.dart';
 import '../../core/theme/app_theme.dart';
 
-/// Tela de splash com identidade visual do Neviim.
+/// Tela de splash com identidade visual do Fotos da Família.
 ///
 /// Exibe por 2,5 segundos e entrega o fluxo ao router via `/consent`.
 /// Se o usuario ja aceitou o termo, o redirect global segue para `/home`.
@@ -110,7 +110,7 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
                 child: ClipOval(
                   child: Image.asset(
-                    'assets/icons/image.jpg',
+                    'assets/icons/family_logo.png',
                     fit: BoxFit.cover,
                   ),
                 ),

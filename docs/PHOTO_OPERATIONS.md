@@ -76,7 +76,7 @@ Nesse caso, o app esta correto: as 14 fotos ignoradas eram RAW Canon `.CR2`. Con
 Use este comando no dia a dia:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim/backend
+cd /home/ubuntu/fotos-familia/backend
 source .venv/bin/activate
 python scripts/index_drive.py --folder-name Galeria --prune-missing-albums
 ```
@@ -120,7 +120,7 @@ Para executar:
 O workflow executa na EC2:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim/backend
+cd /home/ubuntu/fotos-familia/backend
 source .venv/bin/activate
 python scripts/inspect_drive.py --include-subfolders
 python scripts/index_drive.py --folder-name Galeria --prune-missing-albums
@@ -133,7 +133,7 @@ Nao e necessario rebuildar nem publicar frontend quando a mudanca for apenas adi
 Antes de indexar, ou quando algo parecer estranho, rode:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim/backend
+cd /home/ubuntu/fotos-familia/backend
 source .venv/bin/activate
 python scripts/inspect_drive.py --include-subfolders
 ```
@@ -160,7 +160,7 @@ Se o diagnostico mostrar menos fotos do que voce ve no Google Drive, revise:
 3. Rode:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim/backend
+cd /home/ubuntu/fotos-familia/backend
 source .venv/bin/activate
 python scripts/index_drive.py --folder-name Galeria --prune-missing-albums
 ```
@@ -179,7 +179,7 @@ python scripts/inspect_drive.py --include-subfolders
 2. Rode:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim/backend
+cd /home/ubuntu/fotos-familia/backend
 source .venv/bin/activate
 python scripts/index_drive.py --folder-name Galeria --prune-missing-albums
 ```
@@ -197,7 +197,7 @@ Fluxo recomendado:
 3. Rode:
 
 ```bash
-cd /home/ubuntu/apps/app-neviim/backend
+cd /home/ubuntu/fotos-familia/backend
 source .venv/bin/activate
 python scripts/index_drive.py --folder-name Galeria --prune-missing-albums
 ```

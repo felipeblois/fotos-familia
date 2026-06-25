@@ -32,7 +32,7 @@ class ConsentScreen extends ConsumerWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
-            'Nao foi possivel registrar o aceite agora. Tente novamente.',
+            'Não foi possível registrar o aceite agora. Tente novamente.',
           ),
         ),
       );
@@ -74,7 +74,7 @@ class ConsentScreen extends ConsumerWidget {
                       child: AspectRatio(
                         aspectRatio: _heroAspectRatio,
                         child: Image.asset(
-                          'assets/images/bemvindo.png',
+                          'assets/images/family_banner.png',
                           fit: BoxFit.contain,
                           alignment: Alignment.center,
                           errorBuilder: (_, __, ___) => Image.asset(
@@ -103,7 +103,7 @@ class ConsentScreen extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Consentimento de uso',
+                          'Uso familiar e privado',
                           style: theme.textTheme.labelLarge?.copyWith(
                             color: theme.colorScheme.primary,
                             fontWeight: FontWeight.w800,
@@ -111,7 +111,7 @@ class ConsentScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'Antes de entrar, confirme o uso comunitario das galerias.',
+                          'Antes de entrar, confirme o cuidado com o álbum da família.',
                           style: (isMobile
                                   ? theme.textTheme.titleMedium
                                   : theme.textTheme.titleLarge)
@@ -122,7 +122,7 @@ class ConsentScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'Esse aceite ajuda a proteger a comunidade e manter as fotos disponiveis com respeito e responsabilidade.',
+                          'Esse aceite ajuda a manter nossas fotos em um espaço privado, respeitoso e seguro.',
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                             height: 1.35,
@@ -143,30 +143,30 @@ class ConsentScreen extends ConsumerWidget {
                       children: [
                         _ConsentTopic(
                           icon: Icons.storage_outlined,
-                          title: 'Coleta minima de dados',
+                          title: 'Coleta mínima de dados',
                           body:
-                              'Guardamos apenas o aceite do termo e os dados tecnicos necessarios para operar o app.',
+                              'Guardamos apenas o aceite do termo e os dados técnicos necessários para operar o app.',
                         ),
                         SizedBox(height: 16),
                         _ConsentTopic(
                           icon: Icons.people_outline,
-                          title: 'Uso comunitario',
+                          title: 'Uso familiar',
                           body:
-                              'As fotos sao publicadas para consulta pelos fieis e podem ser removidas mediante solicitacao.',
+                              'As fotos são publicadas para consulta da família e podem ser removidas quando necessário.',
                         ),
                         SizedBox(height: 16),
                         _ConsentTopic(
                           icon: Icons.security_outlined,
-                          title: 'Uso etico',
+                          title: 'Uso responsável',
                           body:
-                              'O conteudo nao deve ser reutilizado para fins ilicitos, difamatorios ou comerciais sem autorizacao.',
+                              'O conteúdo não deve ser reutilizado fora do contexto familiar sem autorização.',
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    'Ao continuar, voce confirma que leu e concorda com o uso pastoral e comunitario das galerias.',
+                    'Ao continuar, você confirma que leu e concorda com o uso privado e familiar das galerias.',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
@@ -186,7 +186,7 @@ class ConsentScreen extends ConsumerWidget {
                         const SizedBox(height: 8),
                         TextButton(
                           onPressed: () => _handleDecline(context),
-                          child: const Text('Nao aceito'),
+                          child: const Text('Não aceito'),
                         ),
                       ],
                     ),

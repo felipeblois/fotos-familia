@@ -13,7 +13,7 @@ final consentRepoProvider = Provider<ConsentRepository>((ref) {
 });
 
 class ConsentNotifier extends AsyncNotifier<bool> {
-  static const _sharedKey = 'neviim_accepted_term_version';
+  static const _sharedKey = 'fotos_familia_accepted_term_version';
 
   @override
   Future<bool> build() async {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Design system do app Neviim.
+/// Design system do app Fotos da Família.
 ///
-/// Paleta: preto suave + vermelho Neviim.
-/// Tipografia: Outfit (moderna, legível, premium)
+/// Paleta: preto suave + terracota familiar.
+/// Tipografia: Outfit (moderna, legível, acolhedora).
 /// Suporte a tema claro e escuro.
 class AppTheme {
   AppTheme._();
@@ -13,21 +13,21 @@ class AppTheme {
   // Paleta de cores
   // ---------------------------------------------------------------------------
 
-  // Vermelho Neviim — cor primaria
-  static const _primaryLight = Color(0xFFE52B2F);
-  static const _primaryDark = Color(0xFFFF3434);
+  // Terracota familiar — cor primaria
+  static const _primaryLight = Color(0xFFB6633E);
+  static const _primaryDark = Color(0xFFD47A4E);
 
-  // Dourado — acento secundario
-  static const _gold = Color(0xFFC9973A);
-  static const _goldLight = Color(0xFFE5B96A);
+  // Oliva/dourado — acento secundario
+  static const _gold = Color(0xFF6E7250);
+  static const _goldLight = Color(0xFFE1C27B);
 
   // Backgrounds
-  static const _bgLight = Color(0xFFFAF7F5);
-  static const _bgDark = Color(0xFF070809);
+  static const _bgLight = Color(0xFFFAF4EA);
+  static const _bgDark = Color(0xFF10100D);
 
   // Surfaces
   static const _surfaceLight = Color(0xFFFFFFFF);
-  static const _surfaceDark = Color(0xFF171719);
+  static const _surfaceDark = Color(0xFF1B1814);
 
   // Texto
   static const _onPrimaryLight = Color(0xFFFFFFFF);

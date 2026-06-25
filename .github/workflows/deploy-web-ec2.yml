@@ -69,7 +69,7 @@ jobs:
         run: |
           ssh -i ~/.ssh/neviim_ec2_key "${EC2_USER}@${EC2_HOST}" "DEPLOY_BRANCH='${DEPLOY_BRANCH}' EC2_HOST='${EC2_HOST}' bash -s" <<'EOF'
             set -euo pipefail
-            cd /home/ubuntu/apps/app-neviim
+            cd /home/ubuntu/fotos-familia
 
             if [ -n "$(git status --porcelain)" ]; then
               git stash push -u -m "github-actions-deploy-$(date -u +%Y%m%d%H%M%S)"
@@ -81,7 +81,7 @@ jobs:
             chmod +x scripts/*.sh
             scripts/ec2_setup_backend.sh
             scripts/ec2_publish_frontend.sh /home/ubuntu/neviim-web.tar.gz /var/www/neviim
-            scripts/ec2_install_nginx.sh "${EC2_HOST}" /home/ubuntu/apps/app-neviim /var/www/neviim
+            scripts/ec2_install_nginx.sh "${EC2_HOST}" /home/ubuntu/fotos-familia /var/www/neviim
             sudo systemctl restart neviim-api
 
             for attempt in $(seq 1 30); do

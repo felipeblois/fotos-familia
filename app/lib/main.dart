@@ -10,7 +10,7 @@ Future<void> main() async {
 
   runApp(
     const ProviderScope(
-      child: NeviimApp(),
+      child: FotosFamiliaApp(),
     ),
   );
 }
