@@ -3,6 +3,7 @@ set -euo pipefail
 
 WEB_PACKAGE="${1:-}"
 WEB_ROOT="${2:-/var/www/neviim}"
+DELETE_WEB_PACKAGE_AFTER_PUBLISH="${DELETE_WEB_PACKAGE_AFTER_PUBLISH:-true}"
 
 if [[ -z "${WEB_PACKAGE}" ]]; then
   echo "Uso: scripts/ec2_publish_frontend.sh <pacote-neviim-web.tar.gz> [web_root]" >&2
@@ -41,3 +42,8 @@ sudo find "${WEB_ROOT}" -type d -exec chmod 755 {} \;
 sudo find "${WEB_ROOT}" -type f -exec chmod 644 {} \;
 
 echo "Frontend publicado em ${WEB_ROOT}."
+
+if [[ "${DELETE_WEB_PACKAGE_AFTER_PUBLISH}" == "true" ]]; then
+  rm -f "${WEB_PACKAGE}"
+  echo "Pacote temporario removido: ${WEB_PACKAGE}"
+fi

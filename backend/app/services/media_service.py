@@ -23,6 +23,7 @@ from app.dependencies import get_firebase_app
 THUMBNAIL_CACHE_DIR = Path(
     os.getenv("NEVIIM_MEDIA_CACHE_DIR", "/tmp/neviim-media-cache")
 ) / "thumbnails"
+THUMBNAIL_CACHE_MAX_MB = int(os.getenv("NEVIIM_MEDIA_CACHE_MAX_MB", "256"))
 
 
 @lru_cache(maxsize=1)
@@ -111,6 +112,33 @@ def _write_cached_thumbnail(
     content_path, content_type_path = _thumbnail_cache_paths(source_file_id)
     content_path.write_bytes(content)
     content_type_path.write_text(mime_type, encoding="utf-8")
+    _prune_thumbnail_cache()
+
+
+def _prune_thumbnail_cache() -> None:
+    if THUMBNAIL_CACHE_MAX_MB <= 0 or not THUMBNAIL_CACHE_DIR.exists():
+        return
+
+    max_bytes = THUMBNAIL_CACHE_MAX_MB * 1024 * 1024
+    content_files = [
+        path
+        for path in THUMBNAIL_CACHE_DIR.glob("*.bin")
+        if path.is_file()
+    ]
+    total_bytes = sum(path.stat().st_size for path in content_files)
+    if total_bytes <= max_bytes:
+        return
+
+    for path in sorted(content_files, key=lambda item: item.stat().st_mtime):
+        try:
+            total_bytes -= path.stat().st_size
+            path.unlink()
+            path.with_suffix(".content-type").unlink(missing_ok=True)
+        except OSError:
+            continue
+
+        if total_bytes <= max_bytes:
+            return
 
 
 def _looks_like_thumbnail_url(url: str) -> bool:

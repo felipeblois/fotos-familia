@@ -52,10 +52,13 @@ fi
 source .venv/bin/activate
 
 echo "Atualizando pip..."
-pip install --upgrade pip
+pip install --no-cache-dir --upgrade pip
 
 echo "Instalando dependencias do backend..."
-pip install -r requirements.txt
+pip install --no-cache-dir -r requirements.txt
+
+echo "Limpando cache local do pip..."
+pip cache purge >/dev/null 2>&1 || true
 
 echo "Validando import principal..."
 python -c "from app.main import app; print(app.title)"

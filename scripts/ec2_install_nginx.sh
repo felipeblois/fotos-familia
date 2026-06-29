@@ -34,6 +34,11 @@ sudo rm -f /etc/nginx/sites-enabled/agente-feedback-conversacional
 sudo nginx -t
 sudo systemctl reload nginx
 
+find /home/ubuntu -maxdepth 1 -type d -name "nginx-sites-enabled-backup-*" \
+  | sort -r \
+  | tail -n +4 \
+  | xargs -r rm -rf
+
 echo "Nginx configurado para ${DOMAIN}."
 echo "Frontend servido de ${WEB_ROOT}."
 echo "Backup dos sites habilitados salvo em ${BACKUP_DIR}."
