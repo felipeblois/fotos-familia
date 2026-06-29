@@ -37,7 +37,7 @@ sudo systemctl reload nginx
 find /home/ubuntu -maxdepth 1 -type d -name "nginx-sites-enabled-backup-*" \
   | sort -r \
   | tail -n +4 \
-  | xargs -r rm -rf
+  | sudo xargs -r rm -rf || true
 
 echo "Nginx configurado para ${DOMAIN}."
 echo "Frontend servido de ${WEB_ROOT}."

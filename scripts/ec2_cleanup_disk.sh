@@ -31,7 +31,7 @@ echo "Mantendo apenas os 3 backups mais recentes de nginx..."
 find /home/ubuntu -maxdepth 1 -type d -name "nginx-sites-enabled-backup-*" \
   | sort -r \
   | tail -n +4 \
-  | xargs -r rm -rf
+  | sudo xargs -r rm -rf || true
 
 echo "Limitando journal do systemd para ${KEEP_JOURNAL_SIZE}..."
 sudo journalctl --vacuum-size="${KEEP_JOURNAL_SIZE}" >/dev/null || true
