@@ -1,0 +1,19 @@
+# Secrets and local environment
+backend/.env
+backend/credentials/
+secrets/
+*.pem
+*.key
+
+# Python
+backend/.venv*/
+backend/**/__pycache__/
+backend/.pytest_cache/
+backend/.coverage
+
+# Flutter/Dart
+app/.dart_tool/
+app/build/
+
+# Build artifacts
+dist/
